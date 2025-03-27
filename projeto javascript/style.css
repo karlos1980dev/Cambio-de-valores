@@ -1,0 +1,48 @@
+body{
+    background-color: black;
+    color: aliceblue;
+    display: ;
+    height: 100vh;
+    margin:20px;
+    text-align: center;
+}
+.meuMundo{
+    
+    background: green;
+    border: 2px solid rgb(235, 227, 227);
+    display: flex;
+    text-align: center;
+    justify-content:center;
+
+}
+.inputvalor{
+    border-radius:20px;
+    height:50px;
+    font-size:20px;
+    font-weight:bold;
+    font-gap:10px;
+    border :1px solid red;
+    background-color:black;
+    color:white;
+    margin:10px;
+    text-align:center;
+}
+.divbtn{
+    display: grid;
+    justify-content:right;
+    margin:10px;
+}
+button{
+    margin:5px;
+    cursor:pointer;
+}
+button:hover{
+    background-color:skyblue;
+}
+button:focus{
+    background-color:black;
+    color:white;
+}
+.cabeca{
+    background-color:grey;
+}
