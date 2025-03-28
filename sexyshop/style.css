@@ -1,0 +1,49 @@
+/* Estilo do corpo da página */
+body {
+    background-color: black;
+    color: white;
+}
+
+/* Centralizar o título */
+h1 {
+    text-align: center;
+}
+
+/* Menu de produtos (inicialmente invisível) */
+.menu-produto {
+    display: none;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 5px;
+    width:50%;
+    height: 100vh;
+}
+.menu-produto a{
+    display:block;
+    padding:10px;
+    list-style:none;
+    border-inline-end-style: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+   .menu-produto a:hover{
+background-color: #a6db14;
+   }
+/* Mostrar o menu quando a classe 'activer' for adicionada */
+.menu-produto.activer {
+    display: block;
+}
+.card-anal{
+    display:none;
+    width: 60px;
+
+}
+.hambung{
+    display:flex;
+    text-align: right;
+    justify-content: flex-end;
+    float: right;
+}
+.h-menu{
+    text-align:center;
+}

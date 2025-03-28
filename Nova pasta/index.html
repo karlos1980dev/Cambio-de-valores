@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        body {
+            background: #333;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background: #444;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #ffcc00;
+        }
+
+        .rifa-display {
+            font-size: 3em;
+            font-weight: bold;
+            background: #222;
+            color: lime;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .botao {
+            background-color: #ffcc00;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .botao:hover {
+            background-color: #ff9933;
+        }
+
+        .botao:active {
+            background-color: #cc6600;
+        }
+
+        .numeros-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .numero {
+            background: #555;
+            margin: 10px;
+            padding: 15px;
+            font-size: 1.5em;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .numero:disabled {
+            background: #777;
+            cursor: not-allowed;
+        }
+
+        .numero:hover {
+            background: #ff9933;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sistema de Rifa</h1>
+    <div id="rifaDisplay" class="rifa-display">00</div>
+    <button class="botao" onclick="sortearNumero()">Sortear Número</button>
+    
+    <div class="numeros-container" id="numerosContainer">
+        <!-- Números sorteados serão mostrados aqui -->
+    </div>
+</div>
+
+<script>
+    let numerosMarcados = [];
+
+    // Função para sortear um número aleatório
+    function sortearNumero() {
+        let numero = Math.floor(Math.random() * 100); // Gera um número entre 0 e 99
+        let numeroFormatado = numero < 10 ? "0" + numero : numero; // Formata para dois dígitos
+        document.getElementById("rifaDisplay").textContent = numeroFormatado; // Exibe o número sorteado
+    }
+
+    // Função para criar os números da rifa
+    function criarNumeros() {
+        let container = document.getElementById("numerosContainer");
+
+        for (let i = 0; i < 100; i++) {
+            let numero = i < 10 ? "0" + i : i;
+            let numeroDiv = document.createElement("button");
+            numeroDiv.textContent = numero;
+            numeroDiv.classList.add("numero");
+            numeroDiv.setAttribute("data-numero", numero);
+
+            // Adiciona evento de clique para marcar o número
+            numeroDiv.addEventListener("click", function() {
+                marcarNumero(numeroDiv, numero);
+            });
+
+            container.appendChild(numeroDiv);
+        }
+    }
+
+    // Função para marcar um número
+    function marcarNumero(elemento, numero) {
+        if (numerosMarcados.includes(numero)) {
+            alert("Este número já foi marcado!");
+            return;
+        }
+
+        // Marca o número como sorteado
+        numerosMarcados.push(numero);
+        elemento.disabled = true; // Desabilita o botão
+
+        // Salva no servidor (backend)
+        fetch('http://localhost:5000/marcar-numero', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ numero: numero, usuario: 'Usuario1' })  // Substitua 'Usuario1' por um nome dinâmico
+        })
+        .then(response => response.json())
+        .then(data => alert("Número marcado com sucesso!"))
+        .catch((error) => alert("Erro ao marcar número: " + error));
+    }
+
+    // Carrega os números marcados
+    window.onload = function() {
+        criarNumeros();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        body {
+            background: black; /* A COR DO FUNDO E Preta */
+            color: white; /* COM DAS LETRAS BRANCAS */
+           /* overflow: hidden;  SEM ROLAGEM */
+        }
+
+        h1 {
+            display: flex; /* A tela pode ser tanto para esquerda e direita */
+            text-align: center; /* Alinha o texto ao centro */
+            background: lime; /* A cor de fundo do h1 será verde */
+            justify-content: center; /* Alinha ao centro os elementos */
+            color: black; /* A cor do h1 será preta */
+            border-top: 2px solid red; /* Colocar uma cor vermelha em cima do h1 */
+            border-bottom: 2px solid red; /* Colocar uma cor vermelha em baixo do h1 */
+            border-radius: 10px; /* Deixar a borda arredondada */
+        }
+
+        p {
+            display: none; /* Ocultar o conteúdo do artigo p */
+        }
+
+        p:hover {
+            width: 60px; /* Tamanho do elemento ao passar o mouse por cima dele */
+            background: red; /* A cor do fundo ficar vermelha quando passar o mouse por cima */
+            border-top: 1px solid lime; /* Colocar uma borda na parte de cima */
+            border-bottom: 1px solid lime; /* Colocar uma borda na parte de baixo */
+            color: black; /* A cor da letra será preta */
+            text-align: center; /* O texto será alinhado ao centro */
+            border-radius: 5px; /* As pontas serão arredondadas */
+        }
+
+        #menu {
+            margin: 30px; /* Distância entre os elementos de 30 */
+            cursor: pointer; /* Efeito ao passar o mouse sobre o elemento */
+            position: fixed; /* Posição fixada do elemento */
+            z-index: 1000; /* Posição do elemento em relação ao outro, ficará à frente */
+        }
+
+        #menu.active p {
+            display: block; /* Tela desbloqueada */
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            margin-left: 100px;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav li:hover {
+            background: red;
+        }
+
+        nav li {
+            margin-right: 40px;
+            list-style: none; /* Oculta a decoração do ponto no li */
+            justify-content: right;
+        }
+
+        .modal {
+            display: none;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Tamanho que vai ocupar para baixo na tela */
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modalContent {
+            display: flex;
+        }
+
+        .scarlet {
+            width: 150px; /* Tamanho inicial das imagens ajustado para 150x150px */
+            height: 150px;
+            object-fit: contain; /* Garante que a imagem se ajuste sem distorção */
+            border: 1px solid red;
+            align-items: center;
+            text-align: center;
+            display: inline-flex;
+            margin: 2px;
+            transition: transform 0.3s ease; /* Transição suave quando aumentar */
+            cursor: pointer;
+        }
+
+        .central {
+            margin-top: 70px;
+            position: relative;
+            display: flex; /* Flexbox para manter as imagens na mesma linha */
+            justify-content: flex-start; /* Alinha as imagens à esquerda */
+            gap: 10px; /* Adiciona um espaço entre as imagens */
+            overflow: hidden; /* Impede que as imagens ultrapassem os limites da tela */
+        }
+
+        .seta {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .esqueda {
+            left: 10px;
+        }
+
+        .direita {
+            right: 10px;
+        }
+
+        .seta:hover {
+            background: rgba(207, 7, 7, 0.5);
+        }
+        .fileocultar{
+            display:none;
+        }
+        #lbb{
+            margin:5px;
+            text-align: center;
+            justify-content:center;
+        }
+        #previewImage{
+            text-align:center;
+            margin-top: 50px;
+            margin-left:40%;
+            display: flex;
+            justify-content:center;
+        }
+        #imageInput{
+            background-color: red;
+            desanblet
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <!-- Funciona para abrir o menu -->
+            <li onclick="abrirModal()" id="open">Familia</li>
+            <li>Membro</li>
+            <li>Meleca</li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Funciona para fechar o menu -->
+<div class="modal" onclick="fecharModal(event)">
+    <div class="modalContent">
+        <h1>Familia</h1>
+        <span>Carlos</span>
+    </div>
+</div>
+
+<h1>MEU ALBUM DE HISTORIA</h1>
+
+<!-- Funciona para abrir o menu -->
+<div id="menu">
+    <span onclick="aperta()">&#9776;</span>
+    <p>Carlos</p>
+    <p>Scarlet</p>
+</div>
+
+<!-- Funciona para abrir a pasta de arquivo -->
+<div id="lbb">
+   <label id="imageInput" class="lbb">&#128194; adicionar  foto &#128194;
+   
+       <input for="imageInput"class="fileocultar" type="file">
+   </label>
+   <img id="previewImage" alt="pr-visualização" style="max-width:300px; display:none;">
+</div>
+
+<div class="central">
+    <button id="btnEsquerda" class="seta esqueda">&#8592;</button>
+    <img onclick="imgCrescer(this)" alt="scarlet.jpg" class="scarlet" src="scarlet.jpg">
+    <img onclick="imgCrescer(this)" alt="scarlet1.jpg" class="scarlet" src="scarlet1.jpg">
+    <img onclick="imgCrescer(this)" alt="scarlet2.jpg" class="scarlet" src="scarlet2.jpg">
+    <button id="btnDireita" class="seta direita">&#8594;</button>
+</div>
+
+<script>
+    /* Função para abrir o menu hamburger */
+    function aperta() {
+        document.getElementById("menu").classList.toggle("active");
+    }
+
+    function imgCrescer(elemento) {
+        // Toggle the scale effect when the image is clicked
+        if (elemento.style.transform === "scale(2.5)") {
+            elemento.style.transform = "scale(1)";
+        } else {
+            elemento.style.transform = "scale(2.5)";
+        }
+    }
+
+    function abrirModal() {
+        const modal = document.querySelector(".modal");
+        modal.style.display = "flex"; // Show the modal
+    }
+
+    function fecharModal(event) {
+        const modal = document.querySelector(".modal");
+        // Close the modal if clicked outside the modal content
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    let posicao = 0;
+
+    document.getElementById("btnEsquerda").addEventListener("click", function() {
+        posicao += 150;
+        moveImagem();
+    });
+
+    document.getElementById("btnDireita").addEventListener("click", function() {
+        posicao -= 150;
+        moveImagem();
+    });
+
+    function moveImagem() {
+        let imagens = document.querySelectorAll(".scarlet");
+        imagens.forEach(function(imagem) {
+            imagem.style.transform = `translateX(${posicao}px)`;
+        });
+    }
+
+    // Adicionando a funcionalidade de preview de imagem
+    document.getElementById("imageInput").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgElement = document.getElementById("previewImage");
+                imgElement.src = e.target.result;
+                imgElement.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+</body>
+</html>
